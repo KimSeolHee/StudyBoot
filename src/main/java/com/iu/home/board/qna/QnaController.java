@@ -2,6 +2,8 @@ package com.iu.home.board.qna;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +42,22 @@ public class QnaController {
 	
 	@PostMapping("add")
 	public String setAdd(QnaVO qnaVO, MultipartFile [] files, RedirectAttributes redirectAttributes)throws Exception{
-		ModelAndView mv = new ModelAndView();
 		int result = qnaService.setAdd(qnaVO);
 //		log.info("Insert확인 : {} {}", result, qnaVO);
 		
 		redirectAttributes.addAttribute("result", result);
+		
+
 		return "redirect:./list";
+	}
+	
+	@GetMapping("detail")
+	public ModelAndView getDetail(QnaVO qnaVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		qnaVO = qnaService.getDetail(qnaVO);
+		mv.addObject("qnaVO", qnaVO);
+		mv.setViewName("board/detail");
+		return mv;
 	}
 
 }

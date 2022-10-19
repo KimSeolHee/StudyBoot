@@ -9,6 +9,7 @@
 <style type="text/css">
 	a:hover{
 		font-weight: bold;
+		font-size: 17px;
 	}
 </style>
 <c:import url="../temp/boot.jsp"></c:import>
@@ -19,18 +20,18 @@
 		<thead>
 			<tr>
 				<th>번호</th>
-				<th>작성자</th>
 				<th>제목</th>
 				<th>내용</th>
+				<th>작성자</th>
 			</tr>
 		</thead>
 		<c:forEach items="${list}" var="qnaVO">
 		<tbody>
 			<tr>
 				<td>${qnaVO.num}</td>
-				<td>${qnaVO.writer}</td>
-				<td>${qnaVO.title}</td>
+				<td><a href="./detail" style="color:white; text-decoration: none;">${qnaVO.title}</a></td>
 				<td>${qnaVO.contents}</td>
+				<td>${qnaVO.writer}</td>
 			</tr>
 		</tbody>
 		</c:forEach>
