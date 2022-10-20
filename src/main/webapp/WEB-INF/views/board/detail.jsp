@@ -8,10 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>상세보기</h1>
+	<h1>${qnaVO.title}</h1>
 	<div class="d-flex justify-content-center">
-		<c:forEach items="${qnaVO}" var="qnaVO">
-		<div><img src="C:/result/upload/qna/${qnaVO.qnaFileVOs.fileName}"/></div>
+		<c:forEach items="${qnaVO.qnaFileVOs}" var="qnaVO">
+		<%-- <div><img src="/file/qna/${qnaVO.fileName}"/></div> --%>
+		<div><a href="/fileDown/qna?fileNum=2">Down</a></div>
+		<div><a href="/fileDown/notice?fileNum=2">Down</a></div>
 		</c:forEach>
 	</div>
 </body>

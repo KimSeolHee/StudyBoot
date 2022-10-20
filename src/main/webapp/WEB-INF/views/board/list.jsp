@@ -25,16 +25,16 @@
 				<th>작성자</th>
 			</tr>
 		</thead>
-		<c:forEach items="${list}" var="qnaVO">
 		<tbody>
+		<c:forEach items="${list}" var="qnaVO">
 			<tr>
 				<td>${qnaVO.num}</td>
-				<td><a href="./detail" style="color:white; text-decoration: none;">${qnaVO.title}</a></td>
+				<td><a href="./detail?num=${qnaVO.num}" style="color:white; text-decoration: none;">${qnaVO.title}</a></td>
 				<td>${qnaVO.contents}</td>
 				<td>${qnaVO.writer}</td>
 			</tr>
-		</tbody>
 		</c:forEach>
+		</tbody>
 	</table>
 	<div class="d-flex justify-content-between" style="width: 80%; margin: 10px auto;">
 		<a href="../" style="text-decoration: none;" class="btn btn-danger">👈뒤로가기</a>
@@ -47,7 +47,7 @@
 		let result = '${param.result}';
 		if(result != ""){
 			if(result == '1'){
-				alert("등록성공");
+/* 				alert("등록성공"); */
 			}else{
 				alert("등록실패");
 			}
