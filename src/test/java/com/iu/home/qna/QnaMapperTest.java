@@ -13,13 +13,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.iu.home.board.qna.Pager;
 import com.iu.home.board.qna.QnaMapper;
 import com.iu.home.board.qna.QnaVO;
 
 @SpringBootTest
+//@Rollback(true)
+@Transactional
 class QnaMapperTest {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -62,9 +66,10 @@ class QnaMapperTest {
 		assertNotEquals(0, ar.size());
 	}
 	
-	//@Test
+	@Test
+	//@Rollback(false) 트랜잭션 영향을 받지않고 롤백이 실행되지 않는다.
 	void setAdd()throws Exception {
-		for(int i = 0; i < 50; i++) {
+		for(int i = 0; i < 1; i++) {
 			QnaVO qnaVO = new QnaVO();
 			qnaVO.setWriter("서리");
 			qnaVO.setTitle("그랬구나");
