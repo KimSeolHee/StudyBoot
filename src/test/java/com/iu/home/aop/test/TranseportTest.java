@@ -15,7 +15,7 @@ class TranseportTest {
 	@Autowired
 	private Card card;
 	
-	@Test
+	//@Test
 	void test() {
 		transeport.takeBus();
 		transeport.takeSubway();
