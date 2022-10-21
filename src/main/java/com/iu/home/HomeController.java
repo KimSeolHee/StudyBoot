@@ -18,14 +18,21 @@ import com.iu.home.board.qna.QnaVO;
 @Controller
 public class HomeController {
 	
-	@Value("${my.message.hi}")
+	//@Value("${my.message.hi}")
 	private String message;
+	
+	@Value("${my.default}")
+	private String app;
 	
 //	private final Logger log = LoggerFactory.getLogger(HomeController.class);
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping("/")
 	public String Home()throws Exception {
+		log.info("=======================================");
+		log.info("message : {}",message);
+		log.info("=======================================");
+		log.info("default {}", app);
 //		log.error("error message");
 //		log.warn("warn message");
 //		log.info("info message");
