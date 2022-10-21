@@ -70,7 +70,7 @@ class QnaMapperTest {
 		assertNotEquals(0, ar.size());
 	}
 	
-	@Test
+	//@Test
 	//@Rollback(false) 트랜잭션 영향을 받지않고 롤백이 실행되지 않는다.
 	void setAdd()throws Exception {
 		for(int i = 0; i < 1; i++) {
