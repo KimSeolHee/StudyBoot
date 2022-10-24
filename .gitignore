@@ -165,6 +165,9 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+# my file
+application-secret.properties
+
 # Windows shortcuts
 *.lnk
 
