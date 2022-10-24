@@ -79,9 +79,11 @@ public class FileManager extends AbstractView {
 		//bf.append(multipartFile.getOriginalFilename());
 		
 		fileName = bf.toString();
-		
+		log.info("Path : {}",path);
 		//3. File Save
 		File file = new File(path, bf.toString());
+		
+		log.info("file : {}",file);
 		
 		//FileCopyUtils
 		//MultipartFile
