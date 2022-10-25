@@ -10,10 +10,9 @@
 <body>
 	<h1>${qnaVO.title}</h1>
 	<div class="d-flex justify-content-center">
-		<c:forEach items="${qnaVO.qnaFileVOs}" var="qnaVO">
-		<div><img src="/file/app/upload/${qnaVO.fileName}"/></div>
-		<div><a href="/fileDown/app/upload?fileNum=2">Down</a></div>
-		<div><a href="/fileDown/app/upload?fileNum=2">Down</a></div>
+		<c:forEach items="${qnaVO.qnaFileVOs}" var="qnaFileVO">
+		<img src="/file/qna/${qnaFileVO.fileName}"/>
+		<div><a href="/fileDown/qna?fileNum=${qnaFileVO.fileNum}">${qnaFileVO.oriName}</a></div>
 		</c:forEach>
 	</div>
 </body>

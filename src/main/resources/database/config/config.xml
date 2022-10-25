@@ -8,5 +8,6 @@
 		<typeAlias type="com.iu.home.board.qna.QnaVO" alias="QnaVO" />
 		<typeAlias type="com.iu.home.board.qna.QnaFileVO" alias="QnaFileVO" />
 		<typeAlias type="com.iu.home.board.qna.Pager" alias="Pager" />
+		<typeAlias type="com.iu.home.member.MemberVO" alias="MemberVO" />
 	</typeAliases>
 </configuration>

@@ -21,7 +21,7 @@
 	</insert>
 	
 	<select id="getDetail" parameterType="QnaVO" resultMap="getDetailResult">
-		SELECT * FROM QNA Q 
+		SELECT Q.*,QF.* FROM QNA Q 
 			LEFT JOIN
 			QNAFILES QF 
 			ON (Q.num = QF.num)
@@ -45,4 +45,8 @@
 			<result column="oriName" property="oriName"/>
 		</collection>
 	</resultMap>
+	
+	<select id="getFileDetail" parameterType="QnaFileVO" resultType="QnaFileVO">
+		SELECT * FROM QNAFILES WHERE fileNum=#{fileNum}
+	</select>
 </mapper>
