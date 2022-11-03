@@ -49,4 +49,12 @@
 	<select id="getFileDetail" parameterType="QnaFileVO" resultType="QnaFileVO">
 		SELECT * FROM QNAFILES WHERE fileNum=#{fileNum}
 	</select>
+	
+	<update id="setUpdate" parameterType="QnaVO">
+		UPDATE QNA SET TITLE=#{title}, CONTENTS=#{contents} WHERE NUM=#{num}
+	</update>
+	
+	<delete id="setDelete" parameterType="QnaFileVO">
+		DELETE FROM QNAFILES WHERE FILENUM=#{fileNum}
+	</delete>
 </mapper>

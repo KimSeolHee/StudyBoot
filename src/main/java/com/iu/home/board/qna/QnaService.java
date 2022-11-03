@@ -65,4 +65,12 @@ public class QnaService {
 	public QnaFileVO getFileDetail(QnaFileVO qnaFileVO)throws Exception{
 		return qnaMapper.getFileDetail(qnaFileVO);
 	}
+	
+	public int setUpdate(QnaVO qnaVO)throws Exception{
+		return qnaMapper.setUpdate(qnaVO);
+	}
+	
+	public int setDelete(QnaFileVO qnaFileVO)throws Exception{
+		return qnaMapper.setDelete(qnaFileVO);
+	}
 }

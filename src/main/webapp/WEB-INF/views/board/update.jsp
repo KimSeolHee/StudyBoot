@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
 prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,8 +22,7 @@ prefix="c" %>
   <body>
     <c:import url="../temp/boot.jsp"></c:import>
     <section class="container">
-      <form:form method="post" modelAttribute="qnaVO" enctype="multipart/form-data">
-<%--       <form action="./add" method="post" enctype="multipart/form-data"> --%>
+      <form action="./update" method="post" enctype="multipart/form-data">
         <div class="mt-4" style="text-align: center">
           <h1
             style="
@@ -38,7 +35,7 @@ prefix="c" %>
               padding: 0.2em;
             "
           >
-            글작성하기
+            글수정
           </h1>
         </div>
 
@@ -50,12 +47,10 @@ prefix="c" %>
               style="font-family: cursive; font-size: 30px"
               >글제목</label
             >
-            <form:input path="title"/>
-            <form:errors path="title"></form:errors>
-<!--             <input
+            <input
               type="text"
               name="title"
-              placeholder="제목을 입력하시오."
+              value="${qnaVO.title}"
               style="
                 display: block;
                 margin: 0 auto;
@@ -63,9 +58,10 @@ prefix="c" %>
                 padding: 0.5em;
                 border-radius: 10px;
               "
-            /> -->
+            />
           </div>
           <div style="text-align: center">
+          <input name="num" value="${qnaVO.num}" style="display: none"/>
             <label
               class="p-3"
               for="exampleFormControlInput1"
@@ -73,32 +69,16 @@ prefix="c" %>
               >글내용</label
             >
           </div>
-          <form:textarea path="contents" id="contents"/>
-          <form:errors path="contents"></form:errors>
-<!--           <textarea
+          <textarea
             name="contents"
             class="form-control mt-1"
             id="contents"
-          ></textarea> -->
+          ></textarea>
           <div class="d-flex justify-content-between">
             <div class="mt-2" id="files">
-             
-            </div>
-            <div class="d-flex">
-              <label
-                class="mt-3 me-2"
-                for="exampleFormControlInput1"
-                style="font-family: cursive; font-size: 20px"
-                >작성자</label
-              >
-              <input
-                class="mt-2"
-                name="writer"
-                type="text"
-                value="${member.id}"
-                readonly="readonly"
-                style="display: block; width: 220px"
-              />
+            <c:forEach items="${qnaVO.qnaFileVOs}" var="fileVO">
+            ${fileVO.oriName}<button type="button" class="deleteFile btn btn-outline-danger" data-file-num="${fileVO.fileNum}">X</button>
+            </c:forEach>
             </div>
           </div>
           <div></div>
@@ -122,8 +102,7 @@ prefix="c" %>
           class="btn btn-outline-danger mt-2"
           >👈뒤로가기</a
         >
-<%--       </form> --%>
-      </form:form>
+      </form>
     </section>
     <script src=""></script>
     <script type="text/javascript">
@@ -133,6 +112,9 @@ prefix="c" %>
         maxHeight: null,
         focus: true,
       });
+      $("#contents").summernote('code','${qnaVO.contents}');
+      
+      count = ${qnaVO.qnaFileVOs.size()}
     </script>
   </body>
 </html>

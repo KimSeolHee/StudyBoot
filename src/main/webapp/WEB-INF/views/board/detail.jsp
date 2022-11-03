@@ -8,12 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+<c:import url="../temp/boot.jsp"></c:import>
 	<h1>${qnaVO.title}</h1>
-	<div class="d-flex justify-content-center">
+	<div class="justify-content-center">
 		<c:forEach items="${qnaVO.qnaFileVOs}" var="qnaFileVO">
-		<img src="/file/qna/${qnaFileVO.fileName}"/>
+		<div><img src="/file/qna/${qnaFileVO.fileName}"/></div>
 		<div><a href="/fileDown/qna?fileNum=${qnaFileVO.fileNum}">${qnaFileVO.oriName}</a></div>
 		</c:forEach>
+	</div>
+	<div class="mt-2">
+		<a href="./update?num=${qnaVO.num}" class="btn btn-outline-info">글수정하기</a>
 	</div>
 </body>
 </html>
