@@ -1,15 +1,28 @@
 package com.iu.home.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+
+import com.iu.home.member.security.LoginFail;
+import com.iu.home.member.security.LoginSuccess;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig{
+	
+	@Autowired
+	private LoginSuccess loginSuccess;
+	
+	@Autowired
+	private LoginFail loginFail;
 
 	//Security에서 무시해야하는 URL패턴 등록
 	@Bean
@@ -43,13 +56,25 @@ public class SecurityConfig{
 					//.loginProcessingUrl(null) //로그인을 진행 요청할 form태그에 action의 주소지정
 					.passwordParameter("pw")//패스워드 파라미터는 password이지만 개발자가 다른 파라미터 이름을 사용할 때 
 					.usernameParameter("id")//아이디 파라미터는 username이지만 개발자가 다른 파라미터 이름을 사용할 때
-					.defaultSuccessUrl("/")//인증에 성공할 경우 요청할 url
-					.failureUrl("/member/login")//인증에 실패 했을 경우 요청할 URL
+					//.defaultSuccessUrl("/")//인증에 성공할 경우 요청할 url
+					.successHandler(loginSuccess)
+					//.failureUrl("/member/login?error=true&message=LoginFail")//인증에 실패 했을 경우 요청할 URL
+					.failureHandler(loginFail)
 					.permitAll()
 					.and()
 				.logout()
+					.logoutUrl("/member/logout")
+					.logoutSuccessUrl("/")
+					.invalidateHttpSession(true)//세션 폐기 (세션 만료시키기)
+					.deleteCookies("JSESSIONID")
 					.permitAll();
 		
 		return httpSecurity.build();
+	}
+	
+	//평문(Clear Text)을 암호화 시켜주는 객체생성
+	@Bean
+	public PasswordEncoder getEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
 prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,16 +13,30 @@ prefix="c" %>
   <body>
     <c:import url="./temp/boot.jsp"></c:import>
     <div>
-      <c:choose>
-        <c:when test="${not empty member}">
-        	<h3>${member.name}님 환영합니다.</h3>
-          <a href="./member/logout">로그아웃</a>
-        </c:when>
-        <c:otherwise>
-          <a href="./member/login">로그인</a>
-          <a href="./member/join">회원가입</a>
-        </c:otherwise>
-      </c:choose>
+			<!-- 로그인 성공 -->
+			<sec:authorize access="isAuthenticated()">
+        		<h3><sec:authentication property="Principal.name"/>님 환영합니다.</h3>
+        		<a href="./member/mypage">마이페이지</a>
+          		<a href="./member/logout">로그아웃</a>
+          	</sec:authorize>
+			
+			<!-- 로그인전 -->
+			<sec:authorize access="!isAuthenticated()">
+          		<a href="./member/login">로그인</a>
+          		<a href="./member/join">회원가입</a>
+          	</sec:authorize>
+          	
+<%--           	<sec:authorize access="hasRole('ADMIN')">
+          		<a href="/admin">ADMIN PAGE</a>
+          	</sec:authorize> --%>
+          	<sec:authorize url="/admin">
+          		<a href="/admin">ADMIN PAGE</a>
+          	</sec:authorize>         	
+          	
+          	<sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+          		<a href="/manager">MANAGER PAGE</a>
+          	</sec:authorize>
+
     </div>
     <div style="margin-top: 140px">
       <img

@@ -29,11 +29,4 @@ public class MemberSecurityService implements UserDetailsService{
 		return memberVO;
 	}
 	
-	//평문(Clear Text)을 암호화 시켜주는 객체생성
-	@Bean
-	public PasswordEncoder getEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-
 }
