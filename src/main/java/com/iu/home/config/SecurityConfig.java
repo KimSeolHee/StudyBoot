@@ -10,9 +10,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import com.iu.home.member.security.LoginFail;
 import com.iu.home.member.security.LoginSuccess;
+import com.iu.home.member.security.LogoutCustom;
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +25,12 @@ public class SecurityConfig{
 	
 	@Autowired
 	private LoginFail loginFail;
+	
+	@Autowired
+	private LogoutCustom logoutCustom;
+	
+	@Autowired
+	private LogoutSuccessHandler logoutSuccessHandler;
 
 	//Security에서 무시해야하는 URL패턴 등록
 	@Bean
@@ -64,7 +72,9 @@ public class SecurityConfig{
 					.and()
 				.logout()
 					.logoutUrl("/member/logout")
-					.logoutSuccessUrl("/")
+					//.logoutSuccessUrl("/")
+					.logoutSuccessHandler(logoutSuccessHandler)//로그아웃 성공 후 해야할 일을 구성
+					.addLogoutHandler(logoutCustom)//로그아웃시 해야할 일을 구성
 					.invalidateHttpSession(true)//세션 폐기 (세션 만료시키기)
 					.deleteCookies("JSESSIONID")
 					.permitAll();
